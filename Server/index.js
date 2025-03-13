@@ -1,17 +1,24 @@
 const express = require('express');
+const cors = require('cors');
+const bodyParser =require('body-parser');
 
 const app = express();
+
+
+app.use(cors());
+app.use(express.json()); 
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.send('Bienvenido a la API de cálculo');
 });
 
-app.get('/calculate', (req, res) => {
-    const { num1, num2, op } = req.query;
+app.post('/calculate', (req, res) => {
+    console.log('Body recibido:', req.body);
+    let { num1, num2, op } = req.body;
 
-    if (!num1 || !num2 || !op) {
-        return res.status(400).json({ error: 'Faltan parámetros' });
-    }
+
+    
 
     const n1 = parseFloat(num1);
     const n2 = parseFloat(num2);
